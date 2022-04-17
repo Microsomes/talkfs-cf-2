@@ -1,9 +1,8 @@
 <template>
   <div class="overflow-scroll noselect	">
-  
     <template v-if="!isSelected">
     <div class="home bg-green-300 pt-12 font-bold flex flex-wrap justify-center space-x-2  ">
-    <div v-for="n in languages" 
+    <div v-for="(n,i) in languages" 
     :key="n"
     class="text-white text-center flex-col flex justify-center items-center text-3xl rounded-md shadow-xl m-2 w-96  bg-black">
      <div class="h-32 flex items-center justify-center space-x-3 flex-col">
@@ -11,7 +10,7 @@
       <p class="text-sm mt-2">{{n.sections.length}} Sections</p>
       </div>
       <div class="flex-grow"></div>
-      <div @click="selectFeed(sec.feedid)" style="cursor:pointer" class="hover:bg-black bg-green-300 w-full mt-2 cursor" v-for="sec in n.sections" :key="sec.feedid">
+      <div @click="selectFeed(sec.feedid,i)" style="cursor:pointer" class="hover:bg-black bg-green-300 w-full mt-2 cursor" v-for="sec in n.sections" :key="sec.feedid">
         {{sec.feedid}}
       </div>
     </div>
@@ -24,7 +23,24 @@
           <div class="h-screen  text-white text-center w-24 bg-black">
           </div>
           <div class="flex-grow overflow-scroll	 bg-yellow-300">
-              <p class="mt-12 text-3xl">{{selectedFeed}}</p>
+
+            <div class="flex mt-12 items-center justify-center">
+            <div class="flex items-center  justify-center">
+             <div class="flex mr-12 flex items-center flex-grow cursor-pointer">
+                  <i class="material-icons text-black text-5xl">
+                    chevron_left
+                  </i>
+                  <p class="font-bold">{{previousModule}}</p>
+              </div>
+              <p class=" text-3xl">{{selectedFeed}}</p>
+               <div class="flex items-center cursor-pointer ml-12 flex-grow">
+                <p class="font-bold">{{nextModule}}</p>
+                  <i class="material-icons text-black text-5xl">
+                    chevron_right
+                  </i>
+              </div>
+            </div>
+            </div>
 
               <!--cross icon-->
               <div @click="close" class="flex items-center justify-center">
@@ -37,13 +53,15 @@
 
               <div v-if="data" class="mt-12">
 
-
-                <div v-for="feed in data.alldocs">
+                <div v-for="(feed,i) in data.alldocs" :key="i">
                   <template v-if="feed.type == 'multi_audio'">\
                       <div :key="lesson.lessonName" v-for="(lesson,i) in JSON.parse(feed.val)">
 
-
+                        
                         <h1 style="color:black" class="text-5xl">{{lesson.lessonName}}:</h1>
+
+
+
                         <div class=" flex items-center justify-center">
                           <p v-if="!lesson.play" @click="startPlay(i)" style="cursor:pointer;color:black;" class="hover:scale-75 bg-green-300 m-2 h-12 flex items-center justify-center text-3xl rounded-full w-32 pl-2">
                           Play
@@ -100,11 +118,12 @@ export default {
     startPlay(n) {
       this.currentPlayingIndex = n;
     },
-    selectFeed(n) {
+    selectFeed(n,i) {
       axios.get(`https://hello.talkfs.workers.dev/?feed=${n}`).then((resp)=>{
         this.data = resp.data;
          this.selectedFeed = n;
         this.isSelected=true;
+        this.selectFeedIndex=i
       });
     },
     fetchData() {
@@ -113,11 +132,25 @@ export default {
       })
     }
   },
+  computed:{
+    nextModule() {
+      if(this.selectFeedIndex!=-1){
+        var n=this.selectFeedIndex+2;
+
+        return this.data.alldocs[n].ogfeed.feedName
+      }
+      return "j"
+    },
+    previousModule() {
+      return "japan"
+    }
+  },
   data:function(){
     return {
       currentPlayingIndex:null,
       isSelected:false,
       selectedFeed:'Modern Eastern European',
+      selectFeedIndex:-1,
       message: 'Hello Vue!',
       languages:[],
       data:null
