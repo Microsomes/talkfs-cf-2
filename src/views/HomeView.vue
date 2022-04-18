@@ -5,7 +5,7 @@
     <div class="home bg-green-300 pt-12 font-bold flex flex-wrap justify-center space-x-2  ">
     <div v-for="n in languages" 
     :key="n"
-    class="text-white text-center flex-col flex justify-center items-center text-3xl rounded-md shadow-xl m-2 w-96  bg-black">
+    class=" text-white text-center flex-col flex justify-center items-center text-3xl rounded-md shadow-xl m-2 w-96  bg-black">
      <div class="h-32 flex items-center justify-center space-x-3 flex-col">
       <p>{{n.name}}</p>
       <p class="text-sm mt-2">{{n.sections.length}} Sections</p>
