@@ -1,5 +1,9 @@
 <template>
   <div class="overflow-scroll noselect	">
+
+    <div class="h-12 flex items-center justify-center text-3xl bg-yellow-300 w-full">
+      <p>We stand with Ukraine</p>
+    </div>
   
     <template v-if="!isSelected">
     <div class="home bg-green-300 pt-12 font-bold flex flex-wrap justify-center space-x-2  ">
@@ -38,8 +42,21 @@
               <div v-if="data" class="mt-12">
 
 
-                <div v-for="feed in data.alldocs">
-                  <template v-if="feed.type == 'multi_audio'">\
+                <div :key="feedIndex" v-for="(feed,feedIndex) in data.alldocs">
+
+                  <template v-if="feed.type=='sound'">
+                    <h1 class="text-5xl">{{feed.val.text}}</h1>
+
+                      <div class="flex items-center justify-center mb-12 mt-12">
+                             <audio controls>
+                              <source :src="feed.val.image" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                            </audio>
+                          </div>
+
+                  </template>
+
+                  <template v-if="feed.type == 'multi_audio'">
                       <div :key="lesson.lessonName" v-for="(lesson,i) in JSON.parse(feed.val)">
 
 
