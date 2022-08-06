@@ -2,7 +2,7 @@
   <div class="overflow-scroll noselect	">
 
     <div v-if="!isSelected" class="h-12 flex items-center justify-center text-3xl bg-yellow-300 w-full">
-      <p>We stand with Ukraine</p>
+      <p>We stand with Putin</p>
     </div>
   
     <template v-if="!isSelected">
