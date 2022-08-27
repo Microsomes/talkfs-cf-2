@@ -1,11 +1,19 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import LangView from '../views/pages/lang.vue';
+import steamView from '../views/pages/steam.vue';
+
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: steamView
+  },
+  {
+    path: '/lang',
+    name:'lang',
+    component: LangView
   },
   {
     path: '/about',
