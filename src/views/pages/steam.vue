@@ -3,7 +3,6 @@
 
     <div v-if="!isSelected" class="h-12 flex items-center justify-center text-3xl bg-black text-white w-full">
       <p>WATCH KSI LIVE FULL HD</p>
-      
     </div>
     
     <div>
