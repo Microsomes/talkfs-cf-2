@@ -11,6 +11,10 @@
         </button></a>
     </div>
 
+    <div class="fixed bg-black rounded-md text-white pl-2 pr-2 m-12" >
+        Total Viewers: {{totalViewers}}
+    </div>
+
     <div style="height:800px;" class="bg-red-300 flex items-center justify-center">
 
         <div >
@@ -34,13 +38,22 @@ const axios= require("axios");
 const HLS_STREAM_URL="https://talkfssteam.com/hls/test.m3u8"
 
 
+const socket = new WebSocket("wss://talkfssocket.herokuapp.com");
+
+
+ 
  
 export default {
   name: 'StreamView',
   components:{
    },
   created() {
-    
+        socket.onmessage= (msg)=>{
+    const viewers = JSON.parse(msg.data).data;
+
+   this.totalViewers = parseFloat(viewers);
+}
+
    },
    mounted(){    
      var video = document.getElementById('mainvid');
@@ -60,7 +73,7 @@ export default {
   },
   data:function(){
     return {
-  
+        totalViewers: 0
     }
   },
 }
