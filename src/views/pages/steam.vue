@@ -44,7 +44,7 @@ var socket;
 
 const ISDEV = false;
 
-socket = new WebSocket("ws://talkfssocket.herokuapp.com");
+socket = new WebSocket("wss://talkfssocket.herokuapp.com");
 
 
 
