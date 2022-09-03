@@ -34,7 +34,7 @@
         created() {
             this.roomID = this.$route.params.id;
 
-            const ISDEV = true;
+            const ISDEV = false;
 
             socket = new WebSocket("wss://talkfssocket.herokuapp.com");
 

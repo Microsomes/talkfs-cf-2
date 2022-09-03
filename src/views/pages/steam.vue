@@ -48,7 +48,7 @@ export default {
    },
   created() {
 
-    const ISDEV = true;
+    const ISDEV = false;
 
      socket = new WebSocket("wss://talkfssocket.herokuapp.com");
 
