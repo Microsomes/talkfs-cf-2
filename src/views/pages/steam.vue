@@ -1,30 +1,32 @@
 <template>
   <div class="noselect	">
 
+    <div v-if="!isSelected" class="h-12 flex  bg-gradient-to-r from-green-300   items-center justify-center text-3xl bg-black text-white w-full">
+      <p>TalkFS.com</p>
+    </div>
     <div v-if="!isSelected" class="h-12 flex items-center justify-center text-3xl bg-black text-white w-full">
-      <p>WATCH KSI LIVE FULL HD</p>
+      <p>Weekend Party Rooms</p>
     </div>
     
-    <div>
-        <a href="https://www.hlsplayer.org/play?url=https%3A%2F%2Ftalkfssteam.com%2Fhls%2Ftest.m3u8"><button>
-            Use Iphone Native Player -- Click here
-        </button></a>
-    </div>
-
     <div class="fixed bg-black rounded-md text-white pl-2 pr-2 m-12" >
-        Total Viewers: {{totalViewers}}
+        Total Visitors In Lobby: {{totalViewers}}
     </div>
 
-    <div style="height:800px;" class="bg-red-300 flex items-center justify-center">
+    <div class="flex flex-wrap space-x-3 space-y-3 items-center justify-center mt-24 rounded-md ">
+  
+      <div @click="createRoom" class="w-96 flex cursor-pointer hover:opacity-70 rounded-md bg-gradient-to-r from-black ease-in duration-300  items-center justify-center h-96 bg-green-300">
+        <span class="text-5xl text-white">+</span>
+      </div>
 
-        <div >
-            <video id="mainvid" ref="mainvid"   controls>
+      <div v-for="room in rooms" :key="room.roomName" @click="openRoom(room.roomName)" class="w-96 flex cursor-pointer hover:opacity-70 rounded-md bg-gradient-to-r from-indigo-500 ease-in duration-300  items-center justify-center h-96 bg-red-300">
+        <span class="text-5xl text-white uppercase">  #{{room.roomName}} </span>
+      </div>
+
       
-            Your browser does not support the video tag.
-            </video>
-        </div>
-
+  
     </div>
+
+    
   
 
     
@@ -37,21 +39,44 @@ const axios= require("axios");
 
 const HLS_STREAM_URL="https://talkfssteam.com/hls/test.m3u8"
 
+var socket;
 
-const socket = new WebSocket("wss://talkfssocket.herokuapp.com");
 
-
- 
- 
 export default {
   name: 'StreamView',
   components:{
    },
   created() {
-        socket.onmessage= (msg)=>{
-    const viewers = JSON.parse(msg.data).data;
 
-   this.totalViewers = parseFloat(viewers);
+    const ISDEV = true;
+
+     socket = new WebSocket("wss://talkfssocket.herokuapp.com");
+
+    if(ISDEV){
+        socket = new WebSocket("ws://localhost:3000");
+    }
+
+
+
+    socket.onmessage= (msg)=>{
+      try{
+      const parsedMessage = JSON.parse(msg.data.toString());
+
+        if(parsedMessage.type == 'roomNotCreated'){
+          alert("Room not created, name already exists");
+        }else if(parsedMessage.type == 'roomCreated'){
+          // this.$router.push({name: 'Room', params: {roomName: parsedMessage.roomName}});
+          this.currentRoom = parsedMessage.data;
+        }else if(parsedMessage.type == 'rooms'){
+          //broadcast rooms
+          console.log(parsedMessage.data);
+          this.rooms = parsedMessage.data;
+          this.$forceUpdate();
+        }
+        else{
+          this.totalViewers = parsedMessage.data;
+        }
+      }catch(e){}
 }
 
    },
@@ -64,16 +89,40 @@ export default {
             hls.loadSource(videoSrc);
             hls.attachMedia(video);
         }
-
-
-
    },
   methods:{
-     
+    openRoom(roomName){
+      this.$router.push({name: 'room', params: {id: roomName}});
+    },
+    createRoom(){
+      
+      const roomName = prompt("Enter room name");
+      if(roomName.length< 5){
+        alert("Room name must be at least 5 characters");
+        return;
+      }
+
+      socket.send(JSON.stringify({
+        type:"createRoom",
+        data:{
+          roomName:roomName,
+          roomPassword:"test"
+        }
+      }))
+
+
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    //CLOSE SOCKET
+    socket.close();
+    next();
   },
   data:function(){
     return {
-        totalViewers: 0
+        totalViewers: 0,
+        allRooms:[],
+        currentRoom: null,
     }
   },
 }

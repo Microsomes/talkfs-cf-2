@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router
 import HomeView from '../views/HomeView.vue'
 import LangView from '../views/pages/lang.vue';
 import steamView from '../views/pages/steam.vue';
+import RoomView from '../views/pages/room.vue';
 
 
 const routes = [
@@ -14,6 +15,11 @@ const routes = [
     path: '/lang',
     name:'lang',
     component: LangView
+  },
+  {
+    path: '/room/:id',
+    name:'room',
+    component: RoomView
   },
   {
     path: '/about',
