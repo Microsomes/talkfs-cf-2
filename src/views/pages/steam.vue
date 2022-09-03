@@ -1,10 +1,10 @@
 <template>
   <div class="noselect	">
 
-    <div v-if="!isSelected" class="h-12 flex  bg-gradient-to-r from-green-300   items-center justify-center text-3xl bg-black text-white w-full">
+    <div class="h-12 flex  bg-gradient-to-r from-green-300   items-center justify-center text-3xl bg-black text-white w-full">
       <p>TalkFS.com</p>
     </div>
-    <div v-if="!isSelected" class="h-12 flex items-center justify-center text-3xl bg-black text-white w-full">
+    <div class="h-12 flex items-center justify-center text-3xl bg-black text-white w-full">
       <p>Weekend Party Rooms</p>
     </div>
     
@@ -50,7 +50,9 @@ export default {
 
     const ISDEV = false;
 
-     socket = new WebSocket("wss://talkfssocket.herokuapp.com");
+     socket = new WebSocket("ws://talkfssocket.herokuapp.com");
+
+
 
     if(ISDEV){
         socket = new WebSocket("ws://localhost:3000");
@@ -81,14 +83,7 @@ export default {
 
    },
    mounted(){    
-     var video = document.getElementById('mainvid');
-
-      var videoSrc = HLS_STREAM_URL;
-        if (Hls.isSupported()) {
-            var hls = new Hls();
-            hls.loadSource(videoSrc);
-            hls.attachMedia(video);
-        }
+     
    },
   methods:{
     openRoom(roomName){

@@ -36,7 +36,7 @@
 
             const ISDEV = false;
 
-            socket = new WebSocket("wss://talkfssocket.herokuapp.com");
+            socket = new WebSocket("ws://talkfssocket.herokuapp.com");
 
             if(ISDEV){
             socket = new WebSocket("ws://localhost:3000");
