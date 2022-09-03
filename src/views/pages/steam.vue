@@ -42,21 +42,23 @@ const HLS_STREAM_URL="https://talkfssteam.com/hls/test.m3u8"
 var socket;
 
 
+const ISDEV = false;
+
+socket = new WebSocket("ws://talkfssocket.herokuapp.com");
+
+
+
+if(ISDEV){
+   socket = new WebSocket("ws://localhost:3000");
+}
+
+
+
 export default {
   name: 'StreamView',
   components:{
    },
   created() {
-
-    const ISDEV = false;
-
-     socket = new WebSocket("ws://talkfssocket.herokuapp.com");
-
-
-
-    if(ISDEV){
-        socket = new WebSocket("ws://localhost:3000");
-    }
 
 
 
