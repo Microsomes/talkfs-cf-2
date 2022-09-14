@@ -8,6 +8,11 @@
   
     <template v-if="!isSelected">
     <div class="home bg-green-300 pt-12 font-bold flex flex-wrap justify-center space-x-2  ">
+
+      <div class="rounded-md bg-black text-white p-12 flex items-center justify-center mr-2">
+        Our deepest condolences, Her Majesty has passed away
+      </div>
+
     <div v-for="n in languages" 
     :key="n"
     class="text-white text-center flex-col flex justify-center items-center text-3xl rounded-md shadow-xl m-2 w-96  bg-black">
@@ -41,6 +46,7 @@
               </div>
 
               <div v-if="data" class="mt-12">
+                
 
 
                 <div :key="feedIndex" v-for="(feed,feedIndex) in data.alldocs">
