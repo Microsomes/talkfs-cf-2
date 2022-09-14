@@ -1,8 +1,9 @@
 <template>
   <div class="overflow-scroll noselect	">
 
-    <div v-if="!isSelected" class="h-12 flex items-center justify-center text-3xl bg-yellow-300 w-full">
-      <p>Talkfs.com</p>
+    <div v-if="!isSelected" class="h-12 flex items-center justify-center text-3xl bg-black text-white w-full">
+      <p class="hidden">Talkfs.com</p>
+      <p>Her Majesty Queen Elizabeth II 1926-2022</p>
     </div>
   
     <template v-if="!isSelected">

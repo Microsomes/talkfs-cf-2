@@ -9,7 +9,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: steamView
+    component: LangView
   },
   {
     path: '/lang',
