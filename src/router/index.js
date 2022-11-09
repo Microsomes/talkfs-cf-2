@@ -9,7 +9,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: require("../views/pages/inrespect.vue").default
+    component: LangView
   },
   {
     path: '/lang',
