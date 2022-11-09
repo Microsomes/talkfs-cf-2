@@ -1,24 +1,24 @@
 <template>
   <div class="overflow-scroll noselect	">
 
-    <div v-if="!isSelected" class="h-12 flex items-center justify-center text-3xl bg-black text-white w-full">
-      <p class="hidden">Talkfs.com</p>
-      <p>Talkfs.com</p>
+    <div style="background:#2146C7" v-if="!isSelected" class="h-12 flex items-center justify-center text-3xl  text-white w-full">
+      <p class="text-sm">TALKFS, the future of languages.</p>
     </div>
 
     <template v-if="!isSelected">
-      <div class="home bg-green-300 pt-12 font-bold flex flex-wrap justify-center space-x-2  ">
+      <div style="background:#0008C1" class="home pt-12 font-bold flex flex-wrap justify-center space-x-2  ">
 
         <div v-for="n in languages" :key="n"
-          class="text-white border-2 text-center flex-col flex justify-center items-center text-3xl rounded-md shadow-xl m-2 w-96  bg-black">
+        style="background:#06283D"
+          class="text-white border-2 text-center rounded-md flex-col flex justify-center items-center text-3xl rounded-md shadow-xl m-2 w-96  ">
           <div class="h-32 flex items-center justify-center space-x-3 flex-col">
             <p>{{ n.name }}</p>
             <p class="text-sm mt-2">{{ n.sections.length }} Sections</p>
           </div>
           <div class="flex-grow"></div>
-          <div @click="selectFeed(sec.feedid)" style="cursor:pointer"
-            class="hover:bg-black bg-green-300 w-full mt-2 cursor" v-for="sec in n.sections" :key="sec.feedid">
-            {{ sec.feedid }}
+          <div @click="selectFeed(sec.feedid)" style="cursor:pointer;background:#E6CBA8"
+            class="hover:bg-black ease-in duration-200  w-full mt-2 cursor" v-for="sec in n.sections" :key="sec.feedid">
+            <span class="text-black text-xl">{{ sec.feedid }} </span>
           </div>
         </div>
       </div>
@@ -27,16 +27,21 @@
     <template v-else>
       <div class="flex">
         <div class="h-screen flex  w-screen bg-white">
-          <div class="h-screen  text-white text-center w-24 bg-black">
+          <div class="h-screen text-center text-white text-center w-32 bg-black">
+            <p class="rotate-3 mt-2 text-4xl">TFS</p>
+            <p class="rotate-3 mt-2 text-sm">
+              LuLu
+            </p>
           </div>
-          <div class="flex-grow overflow-scroll	 bg-yellow-300">
-            <p class="mt-12 text-3xl">{{ selectedFeed }}</p>
+
+          <div style="background:#06283D" class="flex-grow overflow-scroll">
+            <p class="mt-12 text-4xl text-white">{{ selectedFeed }}</p>
 
             <!--cross icon-->
             <div @click="close" class="flex items-center justify-center">
-              <div class="flex bg-black w-12 h-12 shadow-xl rounded-full justify-center items-center mt-12">
-                <div class="text-center text-xl cursor-pointer" @click="isSelected = false">
-                  <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              <div class="flex bg-black w-12 h-12  hover:bg-gray-300 hover:text-black cursor-pointer ease-in duration-200  text-white shadow-xl rounded-full justify-center items-center mt-12">
+                <div class="text-center text-xl  cursor-pointer" @click="isSelected = false">
+                  <svg class="fill-current hover:text-black " xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                     viewBox="0 0 24 24">
                     <path
                       d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
@@ -47,9 +52,7 @@
 
             <div v-if="data" class="mt-12">
 
-
-
-              <div :key="feedIndex" v-for="(feed, feedIndex) in data.alldocs">
+              <div class="grid" :key="feedIndex" v-for="(feed, feedIndex) in data.alldocs">
 
                 <template v-if="feed.type == 'sound'">
                   <h1 class="text-5xl">{{ feed.val.text }}</h1>
