@@ -17,6 +17,11 @@ const routes = [
     component: LangView
   },
   {
+    path: '/lang/:langid/:feedName',
+    name:'langid',
+    component: require("../views/pages/langSectionView.vue").default
+  },
+  {
     path: '/room/:id',
     name:'room',
     component: RoomView

@@ -137,11 +137,14 @@ export default {
     },
     selectFeed(n, feedName) {
       this.selectedFeedName = feedName;
-      axios.get(`https://hello.talkfs.workers.dev/?feed=${n}`).then((resp) => {
-        this.data = resp.data;
-        this.selectedFeed = n;
-        this.isSelected = true;
-      });
+
+      this.$router.push("/lang/"+n+"/"+feedName);
+
+      // axios.get(`https://hello.talkfs.workers.dev/?feed=${n}`).then((resp) => {
+      //   this.data = resp.data;
+      //   this.selectedFeed = n;
+      //   this.isSelected = true;
+      // });
     },
     fetchData() {
       axios.get('https://hello.talkfs.workers.dev/?feed=').then((resp) => {
