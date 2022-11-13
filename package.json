@@ -10,6 +10,7 @@
     "@videojs/http-streaming": "^2.14.2",
     "axios": "^0.26.1",
     "core-js": "^3.8.3",
+    "firebase": "^9.14.0",
     "video.js": "^7.0.3",
     "vue": "^3.2.13",
     "vue-feather-icons": "^5.1.0",

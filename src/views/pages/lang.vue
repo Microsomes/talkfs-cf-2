@@ -7,15 +7,20 @@
 
     <div style="background:#2146C7" class="h-12 mt-2 mb-3 flex items-center justify-center">
       <div style="background:#06283D" class=" cursor-pointer w-full h-12 ml-12 mr-12 rounded-md">
-        <input style="background:#06283D" class="w-full h-full rounded-md pl-3 text-white" placeholder="search languages" type="text" />
+        <input v-model="query" style="background:#06283D" class="w-full h-full rounded-md pl-3 text-white" placeholder="search languages" type="text" />
       </div>
     </div>
 
+    <template v-if="languages2.length == 0">
+      <div class="h-96 bg-yellow text-white text-5xl flex items-center justify-center">
+        <p>No language with the query: '{{query}}' found.</p>
+      </div>
+    </template>
 
     <template v-if="!isSelected">
       <div style="background:#0008C1" class="home pt-12 font-bold flex flex-wrap justify-center space-x-2  ">
 
-        <div v-for="n in languages" :key="n"
+        <div v-for="n in languages2" :key="n"
         style="background:#06283D"
           class="text-white border-2 text-center rounded-md flex-col flex justify-center items-center text-3xl rounded-md shadow-xl m-2 w-96  ">
           <div class="h-32 flex items-center justify-center space-x-3 flex-col">
@@ -124,10 +129,24 @@ export default {
   components: {
     renderPost: renderPost
   },
+  watch:{
+    query(){
+      this.search()
+    }
+  },
+  computed:{
+    languages2(){
+      return this.languages.filter(n => n.name.toLowerCase().includes(this.query.toLowerCase()))
+    }
+  
+  },
   created() {
     this.fetchData();
   },
   methods: {
+    search(){
+      console.log("running search ")
+    },
     close() {
       this.isSelected = false;
       this.currentPlayingIndex = null;
@@ -149,11 +168,14 @@ export default {
     fetchData() {
       axios.get('https://hello.talkfs.workers.dev/?feed=').then((resp) => {
         this.languages = resp.data;
+
+        console.log(resp.data)
       })
     }
   },
   data: function () {
     return {
+      query:'',
       currentPlayingIndex: null,
       isSelected: false,
       selectedFeed: '',
