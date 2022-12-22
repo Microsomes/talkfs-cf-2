@@ -1,5 +1,5 @@
 <template>
-  <div style="background:#2146C7" class="overflow-scroll noselect	">
+  <div style="background:#2146C7" class="overflow-y-scroll noselect	h-screen">
 
     <div style="background:#2146C7" v-if="!isSelected" class="h-12 flex items-center justify-center text-3xl  text-white w-full">
       <p class="text-xl">TALKFS. The future of languages.</p>
@@ -18,7 +18,7 @@
     </template>
 
     <template v-if="!isSelected">
-      <div style="background:#0008C1" class="home pt-12 font-bold flex flex-wrap justify-center space-x-2  ">
+      <div style="background:#d" class="home pt-12 font-bold flex flex-wrap justify-center space-x-2  ">
 
         <div v-for="n in languages2" :key="n"
         style="background:#06283D"
