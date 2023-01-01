@@ -10,12 +10,12 @@
                       d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
                   </svg>
     </div>
-    <div  v-for="sect in lessons"  style="background:#06283D"
-          class="mt-8  text-white border-2 text-center rounded-md flex-col flex justify-center items-center text-3xl rounded-md shadow-xl m-2 w-96  p-2 cursor-pointer">
+    <div @click="sect.isActive = true"  v-for="sect in lessons"  style="background:#06283D"
+          class="mt-8  text-white border-2 text-center rounded-md flex-col flex justify-center items-center text-3xl rounded-md shadow-xl m-2 w-96  p-2 cursor-pointer hover:scale-90">
           {{ sect.name }}
 
 
-          <audio :src="getUrl(sect.S3Audio)" class="mt-2" controls>
+          <audio v-if="sect.isActive" :src="getUrl(sect.S3Audio)" class="mt-2" controls>
                       <source type="audio/mpeg">
                       Your browser does not support the audio element.
                     </audio>
