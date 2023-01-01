@@ -20,19 +20,12 @@
     <template v-if="!isSelected">
       <div style="background:#d" class="home pt-12 font-bold flex flex-wrap justify-center space-x-2  ">
 
-        <div v-for="n in languages2" :key="n"
-        style="background:#06283D"
-          class="text-white border-2 text-center rounded-md flex-col flex justify-center items-center text-3xl rounded-md shadow-xl m-2 w-96  ">
-          <div class="h-32 flex items-center justify-center space-x-3 flex-col">
-            <p>{{ n.name }}</p>
-            <p class="text-sm mt-2">{{ n.sections.length }} Sections</p>
-          </div>
-          <div class="flex-grow"></div>
-          <div @click="selectFeed(sec.feedid, sec.feedName)" style="cursor:pointer;background:#E6CBA8"
-            class="hover:bg-black ease-in duration-200  w-full mt-2 cursor" v-for="sec in n.sections" :key="sec.feedid">
-            <span class="text-black text-xl">{{ sec.feedName || sec.feedid }} </span>
-          </div>
+        <div @click="selectLangv2(lang)" v-for="lang in Object.keys(languages2)"  style="background:#06283D"
+          class="text-white border-2 text-center rounded-md flex-col flex justify-center items-center text-3xl rounded-md shadow-xl m-2 w-96  p-2 cursor-pointer hover:scale-90">
+          {{ lang }}
         </div>
+
+      
       </div>
     </template>
 
@@ -136,7 +129,7 @@ export default {
   },
   computed:{
     languages2(){
-      return this.languages.filter(n => n.name.toLowerCase().includes(this.query.toLowerCase()))
+      return this.languages
     }
   
   },
@@ -144,6 +137,12 @@ export default {
     this.fetchData();
   },
   methods: {
+    selectLangv2(lang){
+      console.log("selecting lang", lang)
+      
+      this.$router.push("/langv2/"+lang);
+    
+    },
     search(){
       console.log("running search ")
     },
@@ -166,7 +165,7 @@ export default {
       // });
     },
     fetchData() {
-      axios.get('https://hello.talkfs.workers.dev/?feed=').then((resp) => {
+      axios.get('https://hello.talkfs.workers.dev').then((resp) => {
         this.languages = resp.data;
 
         console.log(resp.data)
@@ -191,6 +190,11 @@ export default {
 
 
 <style>
+
+  *{
+    transition: all .2s;
+  }
+
 .noselect {
   -webkit-touch-callout: none;
   /* iOS Safari */
