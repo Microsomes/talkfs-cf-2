@@ -16,6 +16,10 @@ const routes = [
     component: require("../views/pages/v2/sections.vue").default
   },
   {
+    path:"/lessons/:section",
+    component: require("../views/pages/v2/lessons.vue").default
+  },
+  {
     path: '/lang',
     name:'lang',
     component: LangView

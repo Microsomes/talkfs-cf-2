@@ -10,9 +10,9 @@
                   </svg>
     </div>
     
-    <div   v-for="lang in sections"  style="background:#06283D"
+    <div @click="selectUnit(sect)"   v-for="sect in sections"  style="background:#06283D"
           class="mt-8  text-white border-2 text-center rounded-md flex-col flex justify-center items-center text-3xl rounded-md shadow-xl m-2 w-96  p-2 cursor-pointer hover:scale-90">
-          {{ lang.courseName }}
+          {{ sect.courseName }}
         </div>
 </div>
 
@@ -26,6 +26,16 @@ export default{
         return {
             selectedlang:'',
             sections:[]
+        }
+    },
+
+    methods:{
+        selectUnit(unit){
+            console.log(unit)
+
+            localStorage.setItem("last", JSON.stringify(unit.lessons))
+            this.$router.push("/lessons/"+unit.courseName)
+
         }
     },
 
