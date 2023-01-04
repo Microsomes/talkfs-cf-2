@@ -129,7 +129,19 @@ export default {
   },
   computed:{
     languages2(){
-      return this.languages
+      const langs = Object.keys(this.languages);
+
+      //earch langs with this.query
+      const filteredLangs = langs.filter(lang => lang.toLowerCase().includes(this.query.toLowerCase()))
+
+
+      const filteredLangsObj = {}
+
+      filteredLangs.forEach(lang => {
+        filteredLangsObj[lang] = this.languages[lang]
+      })
+
+      return filteredLangsObj
     }
   
   },
