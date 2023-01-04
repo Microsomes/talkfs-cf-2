@@ -34,7 +34,7 @@
         },
         methods:{
              getUrl(uri){
-    const url = "https://maeplet.fra1.digitaloceanspaces.com/pim2"
+    const url = "https://maeplet.fra1.digitaloceanspaces.com/pim5"
     return `${url}/${uri.replaceAll(" ","%20")}`
 },
            
