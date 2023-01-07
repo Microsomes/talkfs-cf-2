@@ -1,5 +1,16 @@
 <template>
-  <router-view/>
+  <div>
+    <div class=" p-2 md:p-0 md:h-12 items-center md:h-12 md:flex bg-blue-800">
+      <div class=" flex-grow text-center text-white">
+        <p>Advanced Tracking Mode if you login, so create an account ---></p>
+      </div>
+     <router-link to="/login"><div class="rounded-md mt-1 md:mt-0 cursor-pointer md:hover:scale-75  bg-white w-full md:w-24 flex items-center justify-center md:m-2 md:mr-2">Login</div></router-link>
+     <router-link to="/signup"><div class="rounded-md mt-1 md:mt-0 cursor-pointer md:hover:scale-75 bg-white w-full md:w-24 flex items-center justify-center md:m-2 md:mr-12">Sign Up</div></router-link>
+    </div>
+  <router-view>
+
+  </router-view>
+  </div>
 </template>
 
 
