@@ -1,6 +1,6 @@
 <template>
 
-<div class="flex items-center flex-col flex-wrap justify-center">
+<div class="flex items-center p-6 flex-col flex-wrap justify-center">
 
     <div @click="$router.push('/')" class="h-12 w-12 flex items-center justify-center bg-black rounded-full mt-12 cursor-pointer hover:bg-white">
         <svg class="fill-current hover:text-black " xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -11,7 +11,7 @@
     </div>
     
     <div @click="selectUnit(sect)"   v-for="sect in sections"  style="background:#06283D"
-          class="mt-8  text-white border-2 text-center rounded-md flex-col flex justify-center items-center text-3xl rounded-md shadow-xl m-2 w-96  p-2 cursor-pointer hover:scale-90">
+          class="mt-8  text-white border-2 text-center rounded-md flex-col flex justify-center items-center text-3xl rounded-md shadow-xl m-2  pl-6 pr-6 cursor-pointer hover:scale-90">
           {{ sect.courseName }}
         </div>
 </div>
@@ -30,10 +30,12 @@ export default{
     },
 
     methods:{
-        selectUnit(unit){
+        async selectUnit(unit){
             console.log(unit)
+            const lessonUri = `${window.base}lang?lang=${unit.courseName}`;
+            const les = await axios.get(lessonUri)
 
-            localStorage.setItem("last", JSON.stringify(unit.lessons))
+            localStorage.setItem("last", JSON.stringify(les.data[0].lessons))
             this.$router.push("/lessons/"+unit.courseName)
 
         }
@@ -42,7 +44,7 @@ export default{
     mounted(){
         this.selectedlang=this.$route.params.language;
 
-        axios.get("https://hello.talkfs.workers.dev")
+        axios.get("https://talkvxx.ew.r.appspot.com/languages?")
             .then((resp)=>{
                 this.sections = resp.data[this.selectedlang];
             })

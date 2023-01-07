@@ -1,5 +1,5 @@
 <template>
-    <div style="background:#2146C7">
+    <div style="background:#2146C7" class="p-12">
         <template v-if="isLoaded">
         <div @click="close" class="flex items-center justify-center">
             <div
@@ -18,8 +18,8 @@
             {{ $route.params.feedName }}
         </div>
 
-        <div class=" mt-12 flex items-center justify-center">
-            <div class="mt-2 flex flex-wrap justify-center  gap-12">
+        <div class=" mt-12  flex items-center justify-center">
+            <div class="mt-2  flex flex-wrap justify-center  gap-12">
 
                 <template v-for="(feed, feedIndex) in data.alldocs">
 
