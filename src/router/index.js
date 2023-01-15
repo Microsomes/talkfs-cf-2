@@ -46,6 +46,11 @@ const routes = [
     path:"/signup",
     name:"signup",
     component: require("../views/pages/v2/auth/signup.vue").default
+  },
+  {
+    path:"/login",
+    name:"login",
+    component: require("../views/pages/v2/auth/login.vue").default
   }
 ]
 

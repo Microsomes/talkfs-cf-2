@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class=" p-2 md:p-0 md:h-12 items-center md:h-12 md:flex bg-blue-800">
+    <div style="background-color:#0A53DE" class=" p-2 md:p-0 md:h-12 items-center md:h-12 md:flex">
+     <router-link to="/"><div class="ml-2 cursor-pointer text-2xl text-white">
+      Talkfs.com
+    </div></router-link>
       <div class=" flex-grow text-center text-white">
         <p>Advanced Tracking Mode if you login, so create an account ---></p>
       </div>

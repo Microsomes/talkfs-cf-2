@@ -1,13 +1,9 @@
 <template>
-  <div style="background:#2146C7" class="p-6 overflow-y-scroll noselect	h-screen">
+  <div style="background:#F7F5EB" class="p-6 overflow-y-scroll noselect	h-screen">
 
-    <div style="background:#2146C7" v-if="!isSelected" class="h-12 flex items-center justify-center text-3xl  text-white w-full">
-      <p class="text-xl">TALKFS. The future of languages.</p>
-    </div>
-
-    <div style="background:#2146C7" class="h-12 mt-1 mb-3 flex items-center justify-center">
+    <div style="background:#F7F5EB" class="h-12 mt-1 mb-3 flex items-center justify-center">
       <div style="background:#06283D" class=" cursor-pointer w-full h-12 ml-12 mr-12 rounded-md">
-        <input v-model="query" style="background:#06283D" class="w-full h-full rounded-md pl-3 text-white" placeholder="search languages" type="text" />
+        <input v-model="query" style="background:#65647C" class="w-full h-full rounded-md pl-3 text-white" placeholder="search languages" type="text" />
       </div>
     </div>
 
@@ -20,8 +16,8 @@
     <template v-if="!isSelected">
       <div style="background:#d" class="home pt-6 font-bold flex flex-wrap justify-center space-x-2  ">
 
-        <div @click="selectLangv2(lang)" v-for="lang in Object.keys(languages2)"  style="background:#06283D"
-          class="text-white border-2 text-center rounded-md flex-col flex justify-center items-center text-3xl rounded-md shadow-xl m-2 w-96  p-2 cursor-pointer hover:scale-90">
+        <div @click="selectLangv2(lang)" v-for="lang in Object.keys(languages2)"  style="background:#A0C3D2"
+          class="text-black border-2 text-center rounded-md flex-col flex justify-center items-center text-3xl rounded-md shadow-xl m-2 w-96  p-2 cursor-pointer hover:scale-90">
           {{ lang }}
         </div>
 
