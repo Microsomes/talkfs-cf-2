@@ -20,10 +20,10 @@
                     <img v-if="currentPic" :src="currentPic" class="h-20 w-20 rounded-full"/>
                 </div>
                 <p class="text-black text-xl mt-2CBCEC9 mt-2">Upload a profile Image. Click the circle.</p>
-                <form class="w-1/2 flex space-y-3 flex-col mt-3">
+                <form @submit.prevent="signUp()" class="w-1/2 flex space-y-3 flex-col mt-3">
                     <input @change="handleUpload" ref="fu" type="file" class="hidden"/>
-                    <input class="w-full rounded-md pl-2 h-6" type="text" placeholder="Username"/>
-                    <input class="w-full rounded-md pl-2 h-6" type="text" placeholder="Password"/>
+                    <input v-model="username" class="w-full rounded-md pl-2 h-6" type="text" placeholder="Username"/>
+                    <input v-model="password" class="w-full rounded-md pl-2 h-6" type="text" placeholder="Password"/>
                     <input style="background-color:#3A516E" class="text-white rounded-md cursor-pointer create" type="submit" value="Create"/>
                 </form>
             </div>
@@ -34,14 +34,53 @@
 
 <script>
 
+    import { app, getAuth } from '../../../../assets/database.js'
+
+    import {createUserWithEmailAndPassword} from 'firebase/auth'
+
     export default{
         data(){
             return {
                 currentPic:'',
                 picSelected:null,
+                username:'aimen',
+                password:'password'
             }
         },
         methods:{
+            signUp(){
+                // if (this.picSelected == null){
+                //     alert('Please select a profile picture.')
+                //     return
+                // }
+
+                if (this.username == ''){
+                    alert('Please enter a username.')
+                    return
+                }
+
+                if (this.password == ''){
+                    alert('Please enter a password.')
+                    return
+                }
+
+                //remove spaces from username
+                this.username = this.username.replace(/\s/g, '');
+
+                const auth = getAuth(app);
+
+                console.log(auth);
+
+                createUserWithEmailAndPassword(auth, this.username+"@maeplet.com", this.password)
+                    .then((auth)=>{
+                        alert('Account created successfully.')
+                    }).catch((err)=>{
+                        alert(err.message)
+                    })
+
+
+
+            },
             triggerUpload(){
                 this.$refs.fu.click()
             },

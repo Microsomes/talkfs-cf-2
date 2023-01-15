@@ -45,12 +45,24 @@ const routes = [
   {
     path:"/signup",
     name:"signup",
-    component: require("../views/pages/v2/auth/signup.vue").default
+    component: require("../views/pages/v2/auth/signup.vue").default,
+    beforeEnter: (to, from, next) => {
+      if(window.logged){
+        next({name:"home"})
+      }else{
+        next()
+      }
+    }
   },
   {
     path:"/login",
     name:"login",
     component: require("../views/pages/v2/auth/login.vue").default
+  },
+  {
+    name:"/profile",
+    path:"/profile",
+    component: require("../views/pages/v2/auth/profile.vue").default
   }
 ]
 

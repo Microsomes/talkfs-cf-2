@@ -7,8 +7,10 @@
       <div class=" flex-grow text-center text-white">
         <p>Advanced Tracking Mode if you login, so create an account ---></p>
       </div>
-     <router-link to="/login"><div class="rounded-md mt-1 md:mt-0 cursor-pointer md:hover:scale-75  bg-white w-full md:w-24 flex items-center justify-center md:m-2 md:mr-2">Login</div></router-link>
-     <router-link to="/signup"><div class="rounded-md mt-1 md:mt-0 cursor-pointer md:hover:scale-75 bg-white w-full md:w-24 flex items-center justify-center md:m-2 md:mr-12">Sign Up</div></router-link>
+      <router-link to="/profile"><div v-if="onlyIfLoggedIn()"  class="rounded-md mt-1 md:mt-0 cursor-pointer md:hover:scale-75  bg-white w-full md:w-24 flex items-center justify-center md:m-2 md:mr-2">My Profile</div></router-link>
+      <div v-if="onlyIfLoggedIn()" @click="logout()" class="rounded-md mt-1 md:mt-0 cursor-pointer md:hover:scale-75  bg-white w-full md:w-24 flex items-center justify-center md:m-2 md:mr-2">Logout</div>
+      <router-link v-if="onlyIfNotLoggedIn()" to="/login"><div class="rounded-md mt-1 md:mt-0 cursor-pointer md:hover:scale-75  bg-white w-full md:w-24 flex items-center justify-center md:m-2 md:mr-2">Login</div></router-link>
+     <router-link v-if="onlyIfNotLoggedIn()" to="/signup"><div class="rounded-md mt-1 md:mt-0 cursor-pointer md:hover:scale-75 bg-white w-full md:w-24 flex items-center justify-center md:m-2 md:mr-12">Sign Up</div></router-link>
     </div>
   <router-view>
 
@@ -20,9 +22,31 @@
 <script>
 
   import axios from 'axios';
+  import { getAuth } from 'firebase/auth'
 
   export default {
-    mounted(){}
+    mounted(){},
+    methods:{
+      logout(){
+        alert("You have been logged out");
+        getAuth().signOut();
+      },
+      onlyIfLoggedIn(){
+          if(window.logged){
+            return true;
+          }
+  
+          return false;
+        },
+      onlyIfNotLoggedIn(){
+
+        if(window.logged){
+          return false;
+        }
+
+        return true;
+      }
+    }
   }
 
 </script>
