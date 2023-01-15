@@ -1,0 +1,99 @@
+
+*{
+    margin:0;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+.main{
+    height: 100vh;
+    width:  100vw;
+}
+
+.top{
+    height:30vh;
+    width:100vw;
+    background:#CC5500;
+}
+
+.bottom{
+    height:70vh;
+    width:100vw;
+    background:#ff8877
+}
+
+.main_section{
+    position: absolute;
+    top:0;
+    width:50%;
+    height:75%;
+    background:white;
+    border-radius: 10px;
+    left:25%;
+    top:5%;
+}
+
+.top_section{
+    height:35%;
+    background:#373F51;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.profile_circle{
+    height:180px;
+    width:180px;
+    border-radius: 50%;
+    background:pink;
+    position: absolute;
+    top:15%;
+    left: 3%;
+    border:3px solid white;
+    background-image: url('https://maeplet.fra1.digitaloceanspaces.com/Aimen/Screenshot 2023-01-13 at 2.38.51.png');
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+
+.editCircle{
+    height:40px;
+    width:40px;
+    border-radius: 50%;
+    background:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    position: absolute;
+    right:0;
+    margin-right: 30px;
+    margin-top: 20px;
+    cursor: pointer;
+    border:2px solid #304D6D;
+}
+
+.bottom_section{
+    display:flex;
+}
+
+.left_bottom_section{
+    width:30%;
+    height:100%;
+    margin-top: 80px;
+    text-align: center;
+}
+.right_bottom_section{
+    flex-grow: 1;
+    display:flex;
+    justify-content: center;
+}
+.right_bottom_nav{
+    height:30px;
+    width:80%;
+    border-radius: 20px;
+    background:#545E75;
+    margin-top:20px;
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
+    color:white;
+}

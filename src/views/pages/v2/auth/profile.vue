@@ -1,6 +1,6 @@
 <template>
     <div style="overflow:none" class="bg-white h-screen relative w-screen">
-        <div style="top:130px;left:25%" class="fixed w-1/2 rounded-md h-96  bg-white border-2 w-96">
+        <div style="top:130px;left:35%" class="fixed w-1/2 rounded-md h-96  bg-white border-2 w-96">
             
             <div class="h-full bg-red-300 flex  flex-col items-center w-52">
                 <div class="w-32 h-32 bg-black mt-12 rounded-full"></div>
