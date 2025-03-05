@@ -1,0 +1,3 @@
+
+[vuejsserver]
+3.249.92.88 ansible_ssh_user=ubuntu ansible_ssh_private_key_file=~/.ssh/talkfs

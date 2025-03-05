@@ -1,0 +1,121 @@
+---
+- name: Setup talkfs server to serve the app
+  hosts: all
+  become: true 
+  vars:
+    email: 'tayyab@maeplet.com'
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+    
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+    
+    - name: Fetch Certificate if requested
+      block:
+        - name: Install certbot
+          apt:
+            name: certbot
+            state: present
+        
+        - name: does certificate exist
+          command: ls /etc/letsencrypt/live/{{ hostname }}
+          register: cert_exists
+          ignore_errors: true
+        
+      
+        
+        - name: turn off nginx
+          service:
+            name: nginx
+            state: stopped
+            enabled: no
+          when: cert_exists.failed 
+        
+        - name: Get certificate
+          command: certbot certonly --standalone --non-interactive --agree-tos -m {{ email }} -d {{ hostname }}
+          args:
+            creates: "/etc/letsencrypt/live/{{ hostname }}"
+          when: cert_exists.failed 
+        
+        - name: turn on nginx
+          service:
+            name: nginx
+            state: started
+            enabled: yes
+          when: cert_exists.failed 
+
+      
+      when: getcert is defined
+    
+    - name: Build vue app
+      become: false
+      command: npm run build
+      delegate_to: localhost
+    
+    - name: Deploying
+      debug:
+        msg: "Deploying to: {{hostname}}"
+    
+
+    - name: setup vhost for hostname
+      template:
+        src: templates/vhost.j2
+        dest: /etc/nginx/sites-available/{{ hostname }}
+    
+    - name: Enable Nginx site
+      file:
+        src: /etc/nginx/sites-available/{{ hostname }}
+        dest: /etc/nginx/sites-enabled/{{ hostname }}
+        state: link
+        force: yes
+    
+    - name: Remove default Nginx site
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+        force: yes
+        
+    
+    - name: Timestamp dd-mm-yyyy_hh:mm:ss
+      command: date "+%d-%m-%Y_%H:%M:%S"
+      register: timestamp
+    
+    - name: Create Deployment Directory
+      command: mkdir -p /var/www/deployments/{{ timestamp.stdout }}/html
+      args:
+        creates: /var/www/{{ timestamp.stdout }}/html
+    
+    - name: Copy over vuejs build files to the deployment directory
+      copy:
+        src: "../../../dist/"
+        dest: /var/www/deployments/{{ timestamp.stdout }}/html
+    
+    - name: Read the current symlink
+      command: readlink /var/www/{{ hostname }}
+      register: current_symlink
+      ignore_errors: true
+  
+    - name: Symlink deployment directory to /var/www/{{ hostname }}
+      file:
+        src: /var/www/deployments/{{ timestamp.stdout }}/html
+        dest: /var/www/{{ hostname }}
+        state: link
+        force: yes
+    
+    - name: Register Old symlink as previous hostname 
+      file:
+        src: "{{ current_symlink.stdout }}"
+        dest: /var/www/previous_{{ hostname }}
+        state: link
+        force: yes
+      when: current_symlink.stdout is defined and current_symlink.stdout != ""
+    
+
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted

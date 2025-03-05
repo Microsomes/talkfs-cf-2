@@ -21,3 +21,5 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+.0datacollection/social-e5fb1-firebase-adminsdk-wbnqh-6d0bb6b99d.json
+.infra/prod/.terraform/providers/
